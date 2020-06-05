@@ -23,28 +23,36 @@ const cardsContainer = document.querySelector('.cards-container')
 
 
 //make array of 
-const topicsArray = ['bootstrap', 'javascript', 'jquery', 'node', 'technology']
+//bootstrap
+//javascript
+//jquery
+//node
+//technology
 
-topicsArray.forEach(topic => {
-    //insertTopicArray(topic)
-})
-
-function insertTopicArray(topic){
     axios.get('https://lambda-times-backend.herokuapp.com/articles')
     .then(response => {
-        const articleData = `${response}.data.articles.${topic}`
-        console.log(articleData)
+        let articleData = []
+        articleData.push(response.data.articles.bootstrap)
+        articleData.push(response.data.articles.javascript)
+        articleData.push(response.data.articles.jquery)
+        articleData.push(response.data.articles.node)
+        articleData.push(response.data.articles.technology)
+        articleData.forEach(topic => {
+            topic.forEach(item => {
+                cardsContainer.appendChild(makeCard(item))
+            })
+        })
 
     })
     .catch(error => {
-        console.log('error')
+        console.log(error)
     })
     .finally(() => {
         //console.log('done')
     })
-}
 
-insertTopicData('bootstrap')
+
+
 
 
 
